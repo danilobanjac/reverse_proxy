@@ -1,0 +1,24 @@
+proxy:
+  loadBalancingAlgorithm: ROUND_ROBIN
+  listen:
+    address: "localhost"
+    port: 8080
+  services:
+    - name: diff_finder
+      domain: diff-finder.com
+      hosts:
+        - address: "localhost"
+          port: 8000
+    - name: new_diff_finder
+      domain: new-diff-finder.com
+      hosts:
+        - address: "localhost"
+          port: 8090
+    - name: image
+      domain: image.com
+      hosts:
+        - address: "https://tracky.s3.eu-central-1.amazonaws.com"
+          port: 443
+  cache:
+    maxCacheEntries: 1000
+    maxObjectSize: 8192
