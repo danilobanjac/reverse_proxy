@@ -1,6 +1,6 @@
 # Simple Reverse Proxy
 
-Simple reverse proxy with a classic (blocking) message transport.
+Simple reverse proxy with a classic (blocking) message transport. The reverse proxy is implemented using the `org.apache.httpcomponents` library.
 
 # TODO's
 - [ ] Add UNIT tests
