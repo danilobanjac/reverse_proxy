@@ -13,46 +13,52 @@ import org.apache.hc.core5.http.ExceptionListener;
 import org.apache.hc.core5.http.HttpConnection;
 
 public class ServerExceptionListener implements ExceptionListener {
+  private static final String EXCEPTION_CLIENT_PROXY_OPEN = "[EXCEPTION] [CLIENT -> PROXY] [";
+  private static final String SQUARE_CLOSED_SPACE_OPEN = "] [";
+  private static final String SQUARE_CLOSED_SPACE = "] ";
+  private static final String TRACEBACK_START = "; Traceback: ";
 
   @Override
   public void onError(final Exception exception) {
     StringWriter stringWriter = new StringWriter();
-    PrintWriter printWriter = new PrintWriter(stringWriter);
 
-    printWriter
-        .append("[EXCEPTION] [CLIENT -> PROXY] [")
-        .append(new Timestamp(System.currentTimeMillis()).toString())
-        .append("] ")
-        .append(exception.getMessage());
+    try (PrintWriter printWriter = new PrintWriter(stringWriter)) {
+      printWriter
+          .append(EXCEPTION_CLIENT_PROXY_OPEN)
+          .append(new Timestamp(System.currentTimeMillis()).toString())
+          .append(SQUARE_CLOSED_SPACE)
+          .append(exception.getMessage());
 
-    if (!(exception instanceof SocketException)) { // Add traceback
-      printWriter.append("; Traceback: ");
-      exception.printStackTrace(printWriter);
+      if (!(exception instanceof SocketException)) { // Add traceback
+        printWriter.append(TRACEBACK_START);
+        exception.printStackTrace(printWriter);
+      }
+
+      System.out.println(stringWriter);
     }
-
-    System.out.println(stringWriter);
   }
 
   @Override
   public void onError(final HttpConnection connection, final Exception exception) {
     StringWriter stringWriter = new StringWriter();
-    PrintWriter printWriter = new PrintWriter(stringWriter);
 
-    printWriter
-        .append("[EXCEPTION] [CLIENT -> PROXY] [")
-        .append(new Timestamp(System.currentTimeMillis()).toString())
-        .append("] [")
-        .append(connection.getEndpointDetails().toString())
-        .append("] ")
-        .append(exception.getMessage());
+    try (PrintWriter printWriter = new PrintWriter(stringWriter)) {
+      printWriter
+          .append(EXCEPTION_CLIENT_PROXY_OPEN)
+          .append(new Timestamp(System.currentTimeMillis()).toString())
+          .append(SQUARE_CLOSED_SPACE_OPEN)
+          .append(connection.getEndpointDetails().toString())
+          .append(SQUARE_CLOSED_SPACE)
+          .append(exception.getMessage());
 
-    if (!(exception instanceof SocketTimeoutException
-        || exception instanceof SocketException
-        || exception instanceof ConnectionClosedException)) { // Add traceback
-      printWriter.append("; Traceback: ");
-      exception.printStackTrace(printWriter);
+      if (!(exception instanceof SocketTimeoutException
+          || exception instanceof SocketException
+          || exception instanceof ConnectionClosedException)) { // Add traceback
+        printWriter.append(TRACEBACK_START);
+        exception.printStackTrace(printWriter);
+      }
+
+      System.out.println(stringWriter);
     }
-
-    System.out.println(stringWriter);
   }
 }

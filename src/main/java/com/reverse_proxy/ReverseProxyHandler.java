@@ -49,6 +49,11 @@ class ReverseProxyHandler implements HttpRequestHandler {
   private final HashMap<String, DownstreamService> downstreamServices;
   private HttpHost targetHost;
 
+  /**
+   * Create the instance of the HTTP reverse proxy handler.
+   * @param reverseProxyConfig The reverse proxy main config object.
+   * @param requester The instance of the closeable http client.
+   */
   public ReverseProxyHandler(
       final ReverseProxyConfig reverseProxyConfig,
       final CloseableHttpClient requester) {

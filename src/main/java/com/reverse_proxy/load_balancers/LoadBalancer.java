@@ -14,8 +14,8 @@ public abstract class LoadBalancer {
   /**
    * Default constructor that the subclass must initialize.
    *
-   * @param reverseProxyConfig An instance that holds the reverse_proxy configuration loaded from the YAML config
-   *     file.
+   * @param reverseProxyConfig An instance that holds the reverse_proxy configuration loaded from
+   *     the YAML config file.
    */
   protected LoadBalancer(ReverseProxyConfig reverseProxyConfig) {
     this.reverseProxyConfig = reverseProxyConfig;
