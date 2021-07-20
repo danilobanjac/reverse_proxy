@@ -8,7 +8,7 @@ Simple reverse proxy with a classic (blocking) message transport. The reverse pr
 - After processing the request, the downstream service sends the HTTP response back to the reverse proxy
 - The reverse proxy forwards the response to the client making the initial request
 - The reverse proxy is configured using the YAML specified below
-- Implements an in-memory cache (Basic cache settings can be configured through YAML specified below)
+- Implements an in-memory cache (Cache settings can be configured through YAML specified below)
 
 ## YAML configuration
 ```YAML
