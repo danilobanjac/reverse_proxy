@@ -10,6 +10,17 @@ Simple reverse proxy with a classic (blocking) message transport. The reverse pr
 - The reverse proxy is configured using the YAML specified below
 - Implements an in-memory cache (Cache settings can be configured through YAML specified below)
 
+## SLIs (Service Level Indicators) and SLOs (Service Level Objectives)
+
+| **Category**    | **SLI**                                                                                                                                                | **SLO**                                             | **Measure**                                                                                                                                                                                                                                                        |
+|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **HTTP Server** |                                                                                                                                                        |                                                     |                                                                                                                                                                                                                                                                    |
+| Availability    | The proportion of successful HTTP requests, as measured from the reverse proxy logs. Any HTTP status other than 500–599 is considered successful.      | 99%                                                 | `count of "web" http_requests which do not have a 5XX status code divided by count of all "web" http_requests`                                                                                                                                                     |
+| Latency         | The proportion of sufficiently fast HTTP requests, as measured from the reverse proxy logs. “Sufficiently fast” is defined as < 200 ms, or < 1,000 ms. | 90% of requests < 200 ms 99% of requests < 1,000 ms | `count of "web" http_requests with a duration less than or equal to "0.2" seconds divided by count of all "web" http_requests`  `count of "web" http_requests with  a duration less than or equal to  "1.0" seconds  divided by  count of all "web" http_requests` |
+| Throughput      | The proportion of successful HTTP requests per second, as measured from the reverse proxy logs.                                                 
+
+
+
 ## YAML configuration
 ```YAML
 proxy:
