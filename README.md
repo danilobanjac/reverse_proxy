@@ -21,7 +21,7 @@ Simple reverse proxy with a classic (blocking) message transport. The reverse pr
 | Throughput      | The proportion of successful HTTP requests per second, as measured from the reverse proxy logs.                                                        | >= 400 requests per second                          |                                                                                                                                                                                                                                                                     |
 
 
-The developer can retrieve the information necessary to calculate the above-specified metrics (SLIs) from logs produced by `RequesterStreamListener`, `ServerExceptionListener`, `ServerStreamListener`.
+The user can retrieve the information necessary to calculate the above-specified metrics (SLIs) from logs produced by `RequesterStreamListener`, `ServerExceptionListener`, `ServerStreamListener`.
 
 ## YAML configuration
 ```YAML
