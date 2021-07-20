@@ -9,6 +9,7 @@ Simple reverse proxy with a classic (blocking) message transport. The reverse pr
 - The reverse proxy forwards the response to the client making the initial request
 - The reverse proxy is configured using the YAML specified below
 - Implements an in-memory cache (Cache settings can be configured through YAML specified below)
+- Implements proper logging (at the moment everything get printed into the stdout and stderr)
 
 ## SLIs (Service Level Indicators) and SLOs (Service Level Objectives)
 
@@ -47,4 +48,5 @@ proxy:
 - [ ] Modularize `ConfigValidator`. When something gets added or removed from the config class structure, validations need to be updated. It would be great if this scenario could be avoided, so that the user can add class, specify validations on the class (`@NotNull`, `@NotBlank` etc.), and be done with it. Maybe use the `visitor` pattern and `Java Reflection` to parse class structure and run the validators
 - [ ] Implement more load-balancing strategies (`Weighted Round Robin`, `Least connections` etc.)
 - [ ] Add the `@Alias` annotation. The annotation would allow that the `YAML` config names can differ from the Java class attribute names
+- [ ] Add option for user to specify the directory for the log files and store the output of the server there (stdout, stderr)
 - [ ] Implement asynchronous HTTP reverse proxy
