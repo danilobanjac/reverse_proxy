@@ -54,6 +54,17 @@ Then run:
 java -cp reverse_proxy.jar com.reverse_proxy.ReverseProxy <path-to-yaml-config>
 ```
 
+Until the conventional logging is added, use the following command to redirect server output to the file:
+
+```sh
+java -cp reverse_proxy.jar com.reverse_proxy.ReverseProxy <path-to-yaml-config> > <log-file-name>.log 2>&1
+```
+
+Full example:
+```sh
+java -cp reverse_proxy.jar com.reverse_proxy.ReverseProxy config.yml > server.log 2>&1
+```
+
 ## TODO's
 - [ ] Create a helm chart to deploy the reverse proxy to a kubernetes cluster
 - [ ] Add UNIT tests
