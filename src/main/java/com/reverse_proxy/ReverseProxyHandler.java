@@ -43,11 +43,10 @@ class ReverseProxyHandler implements HttpRequestHandler {
           HttpHeaders.TE.toLowerCase(Locale.ROOT),
           HttpHeaders.TRAILER.toLowerCase(Locale.ROOT),
           HttpHeaders.UPGRADE.toLowerCase(Locale.ROOT));
-
+  private static final int HOST = 0;
   private final CloseableHttpClient requester;
   private final LoadBalancer loadBalancer;
   private final HashMap<String, DownstreamService> downstreamServices;
-  private HttpHost targetHost;
 
   /**
    * Create the instance of the HTTP reverse proxy handler.
@@ -90,7 +89,10 @@ class ReverseProxyHandler implements HttpRequestHandler {
    * @return The address of the downstream service containing its IP address and port.
    */
   public String getTargetHost(Header hostHeader) {
-    String host = hostHeader.getValue().toLowerCase(Locale.ROOT);
+    String hostHeaderValue = hostHeader.getValue().toLowerCase(Locale.ROOT);
+    String host = hostHeaderValue.contains(":")
+        ? hostHeaderValue.split(":")[HOST] : hostHeaderValue;
+
     AddressHolder addressHolder =
         loadBalancer.balance(this.downstreamServices.get(host));
 
@@ -119,13 +121,14 @@ class ReverseProxyHandler implements HttpRequestHandler {
       final HttpContext serverContext)
       throws IOException, ProtocolException {
 
+    HttpHost targetHost;
     final HttpCacheContext clientContext = HttpCacheContext.create();
     Header hostHeader = incomingRequest.getHeader(HttpHeaders.HOST);
 
     try {
       targetHost = HttpHost.create(this.getTargetHost(hostHeader));
     } catch (URISyntaxException exception) {
-      exception.printStackTrace();
+      throw new IllegalStateException(exception.getMessage());
     }
 
     final ClassicHttpRequest outgoingRequest =

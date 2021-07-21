@@ -6,7 +6,7 @@ package com.reverse_proxy.load_balancers;
 import com.reverse_proxy.config_parsers.AddressHolder;
 import com.reverse_proxy.config_parsers.DownstreamService;
 import com.reverse_proxy.config_parsers.ReverseProxyConfig;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -14,11 +14,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * process the client's request.
  */
 public class RoundRobinLoadBalancer extends LoadBalancer {
-  ConcurrentHashMap<DownstreamService, RepeatedCounter> counters;
+  HashMap<DownstreamService, RepeatedCounter> counters;
 
   public RoundRobinLoadBalancer(ReverseProxyConfig reverseProxyConfig) {
     super(reverseProxyConfig);
-    this.counters = new ConcurrentHashMap<>();
+    this.counters = new HashMap<>();
 
     for (DownstreamService service : reverseProxyConfig.getProxy().getServices()) {
       counters.put(service, new RepeatedCounter(service.getHosts().size()));
@@ -54,10 +54,7 @@ public class RoundRobinLoadBalancer extends LoadBalancer {
      * @return The current counter value.
      */
     public int incrementAndGet() {
-      if (counter.get() == maxCount) {
-        this.counter.set(0);
-      }
-      return this.counter.incrementAndGet();
+      return this.counter.accumulateAndGet(1, (prev, next) -> prev >= maxCount ? 1 : prev + next);
     }
   }
 }

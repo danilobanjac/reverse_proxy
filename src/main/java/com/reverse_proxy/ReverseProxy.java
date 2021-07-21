@@ -80,7 +80,7 @@ public class ReverseProxy {
     if (args.length == 1) {
       filePath = args[FILE_PATH];
     } else {
-      throw new IllegalStateException(
+      throw new IllegalArgumentException(
           "The path to the YAML configuration file must be provided as an argument.");
     }
 
