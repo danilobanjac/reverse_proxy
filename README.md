@@ -61,6 +61,6 @@ java -cp reverse_proxy.jar com.reverse_proxy.ReverseProxy <path-to-yaml-config>
 - [ ] Implement more load-balancing strategies (`Weighted Round Robin`, `Least connections` etc.)
 - [ ] Add the `@Alias` annotation. The annotation would allow that the `YAML` config names can differ from the Java class attribute names
 - [ ] Add `ConnectionPoolListener`
-- [ ] Extend listeners with a unique ID for each transaction
+- [ ] Extend listeners to log the unique ID with each request
 - [ ] Forward the logs to the specific files and not to stdout
 - [ ] Implement asynchronous HTTP reverse proxy
