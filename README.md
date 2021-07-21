@@ -45,7 +45,7 @@ proxy:
     maxObjectSize: 8192
 ```
 
-##Usage
+## Usage
 
 Download the reverse proxy JAR file [here](https://github.com/danilobanjac/reverse_proxy/releases/tag/v1.0.0).
 
