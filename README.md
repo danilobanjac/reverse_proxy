@@ -9,7 +9,7 @@ Simple reverse proxy with a classic (blocking) message transport. The reverse pr
 - The reverse proxy forwards the response to the client making the initial request
 - The reverse proxy is configured using the YAML specified below
 - Implements an in-memory cache (Cache settings can be configured through YAML specified below)
-- Implements proper logging (at the moment everything gets printed into the stdout and stderr)
+- Implements proper logging (at the moment everything gets printed into the stdout)
 
 ## SLIs (Service Level Indicators) and SLOs (Service Level Objectives)
 
