@@ -46,7 +46,9 @@ proxy:
 ```
 
 ##Usage
+
 Download the reverse proxy JAR file [here](https://github.com/danilobanjac/reverse_proxy/releases/tag/v1.0.0).
+
 Then run:
 ```sh
 java -cp reverse_proxy.jar com.reverse_proxy.ReverseProxy <path-to-yaml-config>
