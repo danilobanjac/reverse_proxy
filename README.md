@@ -51,6 +51,7 @@ proxy:
 - [ ] Modularize `ConfigValidator`. When something gets added or removed from the config class structure, validations need to be updated. It would be great if this scenario could be avoided, so that the user can add class, specify validations on the class (`@NotNull`, `@NotBlank` etc.), and be done with it. Maybe use the `visitor` pattern and `Java Reflection` to parse class structure and run the validators
 - [ ] Implement more load-balancing strategies (`Weighted Round Robin`, `Least connections` etc.)
 - [ ] Add the `@Alias` annotation. The annotation would allow that the `YAML` config names can differ from the Java class attribute names
+- [ ] Add `ConnectionPoolListener`
 - [ ] Extends listeners with a unique ID for each transaction
 - [ ] Add option for user to specify the directory for the log files and store the output of the server there (stdout, stderr)
 - [ ] Implement asynchronous HTTP reverse proxy
